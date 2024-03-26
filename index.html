@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="icons/videoPlayer.png" type="image/x-icon" />
+    <link rel="stylesheet" href="videoPlayerStyle.css">
+    <link rel="stylesheet" href="details_container.css">
+    <link rel="stylesheet" href="playlist.css">
+    <script src="videoPlayerScript.js" defer></script>
+    <script type="module" src="script.js" defer></script>
+    <!-- <script type="module" src="file_size.js" defer></script> -->
+    <title>vibe songs</title>
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="search-bar">
+            <input type="search" placeholder="search" data-search>
+            <div class="search-icon-container"><img src="icons/search.png" alt="search-icon" class="search-btn"></div>
+        </div>
+    </nav>
+    <div class="mainPage">
+        <div class="playlist">
+            <nav class="mini-bar">playlist's</nav>
+            <hr>
+            <ul class="playlist-lists">
+                <li class="selected">all song's</li>
+            </ul>
+        </div>
+        <div class="video-container">
+            <div class="video-controls-container">
+                <div class="timeline-container">
+                    <div class="timeline">
+                        <div class="thumb-indicator"></div>
+                    </div>
+                </div>
+                <div class="controls">
+                    <img src="icons/play(white).png" alt="play-button" class="buttonImg play-pause-btn">
+                    <div class="volume-container">
+                        <img src="icons/volume(white).png" alt="volume-button" class="buttonImg volume-btn">
+                        <input placeholder=null type="range" min="0" max="1" step="any" value="1" class="volume-slider">
+                    </div>
+                    <div class="duration-container">
+                        <div class="current-time">0:00</div>
+                        /
+                        <div class="total-time">00:00</div>
+                    </div>
+                    <div class="speed-btn buttonImg wide">1.00x</div>
+                    <img src="icons/miniPlayer(white).png" alt="miniPlayer-btn" class="buttonImg miniplayer-btn">
+                    <img src="icons/rectangle(white).png" alt="theater-btn" class="buttonImg theater-btn">
+                    <img src="icons/fullscreen(white).png" alt="fullscreen-btn" class="buttonImg fullscreen-btn">
+                </div>
+            </div>
+            <video src="" class="player" autoplay></video>
+        </div>
+        <div class="songs">
+            <nav class="mini-bar">playlist songs</nav>
+            <hr>
+            <ol class="songs-list">
+
+            </ol>
+        </div>
+    </div>
+    <div class="details-container">
+        <div class="video-title">vido name</div>
+        <div class="video-details">
+            <div class="video-duration">
+                <div class="current-video-duration">0:00</div>
+                /
+                <div class="total-video-duration">00:00</div>
+            </div>
+            <div class="music-controls">
+                <img src="icons/suffle(white).png" alt="suffle-icon" class="controls-btn2 suffle-icon">
+                <img src="icons/previous(white).png" alt="previous-song-btn" class="controls-btn2 previous-song">
+                <img src="icons/play(pink).png" alt="play-pause-icon" class="controls-btn play-pause-btn2">
+                <img src="icons/next(white).png" alt="next-song-btn" class="controls-btn2 next-song">
+                <img src="icons/loop(white).png" alt="loop-icon" class="controls-btn2 loop-icon">
+            </div>
+            <div class="video-size">size:</div>
+        </div>
+    </div>
+    <!-- <button class="btn">click</button> -->
+    </script>
+</body>
+
+</html>

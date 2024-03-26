@@ -1,0 +1,12 @@
+{
+  "name": "vibe_songs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "type":"commonjs",
+  "scripts": {
+    "start": "node readDir.js"
+  },
+  "author": "",
+  "license": "ISC"
+}

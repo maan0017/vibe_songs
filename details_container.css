@@ -1,0 +1,113 @@
+.details-container {
+    width: 100px;
+    height: 14vh;
+    background-color: darkgray;
+    width: 90%;
+    max-width: 1000px;
+    margin-inline: auto;
+    position: relative;
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 1vh;
+}
+
+.video-title {
+    width: 100%;
+    height: 7vh;
+    font-size: 20px;
+    /* background-color: red; */
+    padding-left: .5%;
+    color: green;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    /* text-wrap: nowrap; */
+}
+
+.video-details {
+    width: 100%;
+    height: calc(100% - 5vh);
+    /* background-color: pink; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-duration {
+    width: 140px;
+    height: 5vh;
+    font-size: 20px;
+    background-color: black;
+    display: flex;
+    position: relative;
+    top: -7.5px;
+    align-items: center;
+    padding-left: 1.5%;
+    color: white;
+}
+
+.video-details .music-controls {
+    width: 45vw;
+    height: 6.85vh;
+    /* background-color: red; */
+    display: flex;
+    position: relative;
+    top: -7.5px;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.music-controls .controls-btn {
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    opacity: .75;
+    margin-left: 4px;
+    margin-right: 4px;
+    /* transition: margin-left 150ms ease-in-out, margin-right 150ms ease-in-out; */
+}
+
+.music-controls .controls-btn:hover {
+    /* background-color: green; */
+    border-radius: 20px;
+    opacity: 1;
+    /* margin-left: 20px;
+    margin-right: 20px;
+    transition: margin-left 150ms ease-in-out, margin-right 150ms ease-in-out; */
+}
+
+.music-controls .controls-btn2 {
+    width: 33px;
+    height: 33px;
+    cursor: pointer;
+    opacity: .75;
+    margin-left: 7px;
+    margin-right: 7px;
+    /* transition: margin-left 150ms ease-in-out, margin-right 150ms ease-in-out; */
+}
+
+.music-controls .controls-btn2:hover {
+    /* background-color: green; */
+    border-radius: 5px;
+    opacity: 1;
+    /* margin-left: 20px;
+    margin-right: 20px;
+    transition: margin-left 150ms ease-in-out, margin-right 150ms ease-in-out; */
+}
+
+.video-size {
+    width: 140px;
+    height: 5vh;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -7.5px;
+    color: white;
+    background-color: black;
+    padding-right: .5%;
+    text-wrap: nowrap;
+}
