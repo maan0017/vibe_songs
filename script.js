@@ -15,6 +15,70 @@ const loop_icon = document.querySelector(".loop-icon");
 import allSongs from "./allSongs.json" assert {type: 'json'};
 
 
+//stack implementation
+class Stack {
+    constructor() {
+        this.stack = [];
+    }
+
+    push(item) {
+        this.stack.push(item);
+    }
+
+    pop() {
+        return this.stack.pop();
+    }
+
+    isEmpty() {
+        return this.stack.length === 0;
+    }
+
+    // Custom method to pop the bottom element
+    popBottom() {
+        if (this.isEmpty()) {
+            return null; // or throw an error
+        }
+
+        // Move all elements except the bottom one to a temporary stack
+        const tempStack = new Stack();
+        while (!this.isEmpty()) {
+            tempStack.push(this.pop());
+        }
+
+        // Pop the bottom element
+        const bottomElement = tempStack.pop();
+
+        // Move back elements from temporary stack to the original stack
+        while (!tempStack.isEmpty()) {
+            this.push(tempStack.pop());
+        }
+
+        return bottomElement;
+    }
+
+    // Remove element at a specific index in the stack
+    removeAtIndex(index) {
+        if (index < 0 || index >= this.stack.length) {
+            throw new Error('Index out of range');
+        }
+
+        // Create a temporary stack to hold elements
+        const tempStack = [];
+
+        // Pop elements from the original stack until the desired index is reached
+        for (let i = 0; i < index; i++) {
+            tempStack.push(this.pop());
+        }
+
+        // Remove the element at the desired index
+        this.pop();
+
+        // Push back elements from the temporary stack to the original stack
+        while (tempStack.length > 0) {
+            this.push(tempStack.pop());
+        }
+    }
+}
 // Directory path
 // const directoryPath = './vibeSongs';
 
@@ -33,7 +97,7 @@ import allSongs from "./allSongs.json" assert {type: 'json'};
 
 console.log(allSongs[0]);
 const songs = allSongs;
-let noLoopSongs = songs;
+let noLoopSongs = allSongs;
 let currentSong = 0;
 
 //if suffle is on
@@ -77,8 +141,47 @@ async function getVideoSize() {
 };
 
 //
+const history = new Stack();
 function noLoopPlay() {
     //implement code
+    if (noLoopSongs.length > 0) {
+        if (currentSong > noLoopSongs.length - 1) {
+            currentSong = 0;
+        }
+        noLoopSongs.splice(currentSong, 1);
+        console.log(`removed --> ${currentSong}`);
+        console.log(`remaining size --> ${noLoopSongs.length - 1}`);
+        if (suffle) {
+            if (history.length > 10) {
+                history.popBottom();
+                history.push(currentSong);
+                currentSong = getRandomInt(0, noLoopSongs.length - 1);
+            }
+            else {
+                history.push(currentSong);
+                currentSong = getRandomInt(0, noLoopSongs.length - 1);
+            }
+            video_title.innerHTML = `${noLoopSongs[currentSong]}`;
+            video.src = `vibeSongs/${noLoopSongs[currentSong]}`;
+            video.play();
+            getVideoSize();
+            removeClass();
+            document.querySelector(`.songs-list li:nth-child(${currentSong + 1})`).classList.add("selected");
+        }
+        else {
+            if (currentSong > noLoopSongs.length - 1) {
+                currentSong = 0
+            }
+            currentSong += 1;
+            video_title.innerHTML = `${noLoopSongs[currentSong]}`;
+            video.src = `vibeSongs/${noLoopSongs[currentSong]}`;
+            video.play();
+            getVideoSize();
+            removeClass();
+            document.querySelector(`.songs-list li:nth-child(${currentSong + 1})`).classList.add("selected");
+
+        }
+    }
 }
 
 
@@ -89,14 +192,17 @@ video.addEventListener("loadeddata", () => {
     video_duration = video.duration;
     console.log(video_duration);
 });
-var loopAll = false;
-var loopOne = true;
+
+//
+var loopAll = true;
+var loopOne = false;
 var noLoop = false;
 function toggleLoop() {
     if (loopAll) {
         loopAll = false;
         noLoop = true;
         loop_icon.src = "icons/right-arrow(white).png"
+        noLoopSongs = allSongs;
     }
     else if (noLoop) {
         noLoop = false;
@@ -149,8 +255,21 @@ function toggleShuffle() {
 suffle_icon.addEventListener("click", toggleShuffle);
 
 function playNextSong() {
+    if (noLoop) {
+        noLoopPlay();
+        return
+    }
     if (suffle) {
-        currentSong = getRandomInt(0, songs.length - 1)
+        if (history.length > 10) {
+            history.popBottom();
+            history.push(currentSong);
+            currentSong = getRandomInt(0, songs.length - 1);
+        }
+        else {
+            history.push(currentSong);
+            currentSong = getRandomInt(0, songs.length - 1);
+        }
+
     }
     else {
         currentSong += 1;
@@ -169,7 +288,14 @@ function playNextSong() {
 }
 function playPreviousSong() {
     if (suffle) {
-        currentSong = getRandomInt(0, songs.length - 1)
+        if (!history.isEmpty()) {
+            currentSong = history.pop();
+            console.log(currentSong);
+        }
+        else {
+            console.log("hello");
+            currentSong = getRandomInt(0, songs.length - 1)
+        }
     }
     else {
         currentSong -= 1;
@@ -216,6 +342,8 @@ window.addEventListener("keydown", (event) => {
         case "p": playPreviousSong();
             break;
         case "n": playNextSong();
+            break;
+        case "s": toggleShuffle();
             break;
     }
 });
